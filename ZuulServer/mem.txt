@@ -1,0 +1,48 @@
+﻿@EnableZuulServer、@EnableZuulProxy两个注解
+@EnableZuulProxy简单理解为@EnableZuulServer的增强版，当Zuul与Eureka、Ribbon等组件配合使用时，我们使用@EnableZuulProxy。 
+
+RequestContext：用于在过滤器之间传递上下文，如：请求路由到哪里、错误、HttpServletRequest、HttpServletResponse，数据保存在每个请求的ThreadLocal中。
+
+一、@EnableZuulServer过滤器
+1、pre类型过滤器
+(1) ServletDetectionFilter：该过滤器用于检查请求是否通过Spring Dispatcher。检查后，通过isDispatcherServletRequest设置布尔值。
+(2) FormBodyWrapperFilter：解析表单数据，并为请求重新编码。
+(3) DebugFilter：顾名思义，调试用的过滤器，可以通过zuul.debug.request=true，或在请求时，加上debug=true的参数，例如$ZUUL_HOST:ZUUL_PORT/path?debug=true开启该过滤器。这样，该过滤器就会把RequestContext.setDebugRouting()、RequestContext.setDebugRequest()设为true。
+
+2、route类型过滤器
+SendForwardFilter：该过滤器使用Servlet RequestDispatcher转发请求，转发位置存储在RequestContext.getCurrentContext().get("forward.to")中。可以将路由设置成：
+zuul: 
+routes: 
+abc:  
+path: /abc/** 
+url: forward:/abc 
+然后访问$ZUUL_HOST:ZUUL_PORT/abc，观察该过滤器的执行过程。
+
+3、post类型过滤器
+SendResponseFilter：将Zuul所代理的微服务的响应写入当前响应。
+4、error类型过滤器
+SendErrorFilter：如果RequestContext.getThrowable()不为null，那么默认就会转发到/error，也可以设置error.path属性修改默认的转发路径。
+
+二、@EnableZuulProxy过滤器
+如果使用注解@EnableZuulProxy，那么除上述过滤器之外，Spring Cloud还会增加以下过滤器：
+1、pre类型过滤器
+PreDecorationFilter：该过滤器根据提供的RouteLocator确定路由到的地址，以及怎样去路由。该路由器也可为后端请求设置各种代理相关的header。
+2、route类型过滤器
+(1) RibbonRoutingFilter：该过滤器使用Ribbon，Hystrix和可插拔的HTTP客户端发送请求。serviceId在RequestContext.getCurrentContext().get("serviceId")中。该过滤器可使用不同的HTTP客户端，例如
+Apache HttpClient：默认的HTTP客户端
+SquareupOkHttpClient v3：如需使用该客户端，需保证com.squareup.okhttp3的依赖在classpath中，并设置ribbon.okhttp.enabled = true。
+Netflix Ribbon HTTP client：设置ribbon.restclient.enabled = true即可启用该HTTP客户端。需要注意的是，该客户端有一定限制，例如不支持PATCH方法，另外，它有内置的重试机制。
+(2) SimpleHostRoutingFilter：该过滤器通过Apache HttpClient向指定的URL发送请求。URL在RequestContext.getRouteHost()中。
+
+sample:
+
+application.yml
+zuul:
+  routes:
+    users:
+      path: /myusers/**
+      serviceId: users
+
+ribbon:
+  eureka:
+    enabled: false

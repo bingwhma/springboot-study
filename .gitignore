@@ -1,0 +1,11 @@
+/*.zip
+/RemoteSystemsTempFiles
+/oauth2_deep
+/.recommenders
+/.metadata
+*.class
+target
+classes
+.settings
+.classpath
+.project
