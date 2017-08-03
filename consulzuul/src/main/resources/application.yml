@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    consul:
+      host: 127.0.0.1
+      port: 8500
+      discovery:
+        register: false
+  application:
+    name: ConsulZuul
+server:
+  port: 9000
+  
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: consul001
+    api-b:
+      path: /api-b/**
+      url: http://localhost:9999

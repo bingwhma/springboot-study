@@ -1,0 +1,13 @@
+gradle init --type java-library
+
+gradle -Dhttps.proxyHost=proxy.jpn.hp.com -Dhttps.proxyPort=8080 eclipse
+
+
+
+#sample
+https://github.com/kbastani/spring-cloud-microservice-example
+https://segmentfault.com/a/1190000005142460
+
+https://springcloud.cc/
+#史上最简单的 SpringCloud 教程
+http://blog.csdn.net/forezp/article/details/70148833
