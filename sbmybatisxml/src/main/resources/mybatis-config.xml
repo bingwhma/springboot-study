@@ -18,7 +18,15 @@
     <typeAliases>
         <package name="com.linyi.domain"/>
     </typeAliases>
+    
+	<plugins>
+    	<plugin interceptor="com.linyi.configure.PageInterceptor"></plugin>
+    </plugins>
+    
     <mappers>
         <mapper resource="com/linyi/mapper/UserMapper.xml"/>
     </mappers>
+    
+
+    
 </configuration>
