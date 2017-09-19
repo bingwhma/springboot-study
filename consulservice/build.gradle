@@ -1,7 +1,7 @@
 buildscript { 
     repositories { 
         jcenter() 
-        //maven { url "http://repo.spring.io/snapshot" } 
+        maven { url "http://repo.spring.io/snapshot" } 
         //maven { url "http://repo.spring.io/milestone" } 
     } 
     dependencies { 
@@ -20,7 +20,7 @@ jar {
 
 repositories { 
     jcenter() 
-    //maven { url "http://repo.spring.io/snapshot" } 
+    maven { url "http://repo.spring.io/snapshot" } 
     //maven { url "http://repo.spring.io/milestone" }
 }
 

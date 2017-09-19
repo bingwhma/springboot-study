@@ -1,3 +1,4 @@
+/build/*
 /*.zip
 /RemoteSystemsTempFiles
 /oauth2_deep
