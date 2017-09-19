@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class DatasourceConfiguration {
 
-	@Bean(name = "dataSource")
+	@Bean(name = "dataSource", initMethod = "init", destroyMethod = "close")  
 	@Qualifier(value = "dataSource")
 	@Primary
 	@ConfigurationProperties(prefix = "c3p0")
