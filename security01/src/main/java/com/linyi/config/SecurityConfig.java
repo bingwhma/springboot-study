@@ -12,7 +12,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override  
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {  
         //inMemoryAuthentication 从内存中获取  
-        auth.inMemoryAuthentication().withUser("chengli").password("123456").roles("USER")  
+        auth.inMemoryAuthentication().withUser("linyi").password("123456").roles("USER")  
         					   .and().withUser("admin").password("123456").roles("ADMIN");  
           
         //jdbcAuthentication从数据库中获取，但是默认是以security提供的表结构  
