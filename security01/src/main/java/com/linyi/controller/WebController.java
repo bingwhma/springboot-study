@@ -32,7 +32,7 @@ public class WebController {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    return "redirect:/hello";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	    return "logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
 	}
 	
 //	@RequestMapping("/logout")  
