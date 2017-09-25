@@ -1,0 +1,33 @@
+http://docs.oracle.com/javase/7/docs/technotes/tools/windows/keytool.html
+
+----Create Java Key Store
+keytool -v -genkey -alias jbosskeys -keyalg RSA -keysize 2048 -keystore jbosskeys.jks -keypass 123456 -storepass 123456 -validity 900 -dname "CN=localhost"
+
+/opt/EAP/jboss-eap-6.4/standalone/configuration/jbosskeys.jks
+
+
+---Export the certificate to a crt file.
+keytool -v -export -rfc -alias jbosskeys -file localfile.crt -keystore jbosskeys.jks -keypass 123456 -storepass 123456
+
+--Import the crt file to the keystore.
+keytool -v -import -keypass 123456 -noprompt -trustcacerts -alias localhost -file localfile.crt -keystore cacerts.jks -storepass 123456
+
+java -Djavax.net.ssl.trustStore=C:/oracle_mem/jbosskeys.jks -Djavax.net.ssl.trustStorePassword=123456 -Djavax.net.ssl.keyStore=C:/oracle_mem/jbosskeys.jks -Djavax.net.ssl.keyStorePassword=123456
+
+jboss
+=========================================
+ key-alias="jboss"
+
+	<ssl name="ssl" password="123456"
+            		key-alias="jbosskeys"
+            		certificate-key-file="C:/oracle_mem/jbosskeys.jks"
+            		verify-client="true"
+            		ca-certificate-password="123456"
+            		ca-certificate-file="C:/oracle_mem/cacerts.jks"
+            		truststore-type="JKS"
+            		protocol="TLSv1" />
+==============================================================
+
+
+
+keytool -v -genkey -alias garden    -keyalg RSA -keysize 2048 -keystore gardenlib.keystore -keypass 123456 -storepass 123456 -validity 900 -dname "CN=bing,OU=HP,O=HP,L=WH,ST=HB,C=CN" 
