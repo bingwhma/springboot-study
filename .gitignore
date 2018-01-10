@@ -2,6 +2,7 @@ build
 /*.zip
 /RemoteSystemsTempFiles
 /oauth2_deep
+bin
 /.recommenders
 /.metadata
 *.class
