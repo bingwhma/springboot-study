@@ -1,0 +1,23 @@
+Serverless平台一般分为如下三类：
+1. 公有云Severless平台：
+A. AWS Lambda
+B. Microsoft Azure Functions、
+C. Google Cloud Functions
+D. Webtask
+E. Syncano
+
+2. 私有云Severless框架：
+A. Fission （Kubernetes）
+B. Funktion （Kubernetes）
+C. Kubeless （Kubernetes）
+D. Gestalt （DC/OS）、
+E. IBM OpenWhisk （Docker）
+F. Iron Functions （Docker，Swarm， Kubernetes）
+
+3.Serverless平台的包装框架：
+A. Serverless（Node，大多数平台）、
+B. Apex（Go，AWS）
+C. Zappa（Python，AWS）
+D. Chalice（Python，AWS）
+E. Claudia.js（Node，AWS）
+F. Gordon （Python，AWS）
