@@ -1,0 +1,8 @@
+post:
+http://localhost:8081/login
+username:aaa
+password:12345
+
+现在我们可以检查我们的管理员是否可以访问自己的/admin接口
+curl -H "Authorization: $TOKEN" http://localhost:8081/api/admin
+curl -H "Authorization: $TOKEN" http://localhost:8081/api/user

@@ -1,0 +1,12 @@
+使用curl我们创建的客户端进行身份验证，以获取访问令牌：
+export TOKEN=`curl -ss --data "grant_type=password&client_id=loginapp&username=admin1&password=123456" http://127.0.0.1:8080/auth/realms/springboot/protocol/openid-connect/token`
+这将收到的访问令牌存储在TOKEN变量中。
+
+现在我们可以检查我们的管理员是否可以访问自己的/admin接口
+curl -H "Authorization: bearer $TOKEN" http://localhost:8081/admin
+
+Admin
+但它无法访问/user接口：
+
+$ curl -H "Authorization: bearer $TOKEN" http://localhost:8081/user
+对于user用户也是如此，user用户无法访问admin接口。
